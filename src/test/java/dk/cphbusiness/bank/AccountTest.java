@@ -52,6 +52,11 @@ public class AccountTest {
     SimpleAccount source = new SimpleAccount(bank, kurt, sourceNumber);
     SimpleAccount target = new SimpleAccount(bank, sonja, targetNumber);
     
+//    Expectations expectations = new Expectations();
+//    expectations.oneOf(bank).getAccount(targetNumber);
+//    expectations.will(Expectations.returnValue(target));
+//    context.checking(expectations);
+    
     context.checking(new Expectations(){{
       oneOf(bank).getAccount(targetNumber);
       will(returnValue(target));

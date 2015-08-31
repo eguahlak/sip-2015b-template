@@ -13,6 +13,10 @@ public class SimpleAccount {
     this.number = number;
     }
   
+  public SimpleAccount(Bank bank, String number) {
+    this(bank, null, number);
+    }
+  
   public String getNumber() {
     return number;
     }
@@ -22,6 +26,8 @@ public class SimpleAccount {
     }
   
   public Customer getCustomer() {
+    if (isInternal())
+        throw new UnsupportedOperationException("No customer on internal accounts");
     return customer;
     }
   
@@ -37,6 +43,10 @@ public class SimpleAccount {
   
   public void deposit(int amount) {
     balance += amount;
+    }
+  
+  public boolean isInternal() {
+    return customer == null;
     }
   
   }

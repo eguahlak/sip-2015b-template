@@ -9,5 +9,10 @@ public class BankStubForTransferMoney implements Bank {
   public SimpleAccount getAccount(String number) {
     return sonjaAccount;
     }
+
+  @Override
+  public String getName() {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
   
   }
