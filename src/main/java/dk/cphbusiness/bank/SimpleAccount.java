@@ -1,11 +1,13 @@
 package dk.cphbusiness.bank;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SimpleAccount {
   private final Bank bank;
   private final Customer customer;
   private final String number;
-  private int balance = 0;
-  
+  private final List<Movement> movements = new ArrayList<>();
   
   public SimpleAccount(Bank bank, Customer customer, String number) {
     this.bank = bank;
@@ -32,21 +34,27 @@ public class SimpleAccount {
     }
   
   public int getBalance() {
+    int balance = 0;
+    for (Movement movement : movements) {
+      if (movement.getSource() == this) balance -= movement.getAmount();
+      else balance += movement.getAmount();
+      }
     return balance;
     }
   
   public void transfer(int amount, String targetNumber) {
     SimpleAccount target = bank.getAccount(targetNumber);
-    target.deposit(amount);
-    balance -= amount;
-    }
-  
-  public void deposit(int amount) {
-    balance += amount;
+    Movement movement = new Movement(amount, this, target);
+    movements.add(movement);
+    target.movements.add(movement);
     }
   
   public boolean isInternal() {
     return customer == null;
+    }
+  
+  public List<Movement> listMovements() {
+    return movements;
     }
   
   }
